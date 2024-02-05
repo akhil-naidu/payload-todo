@@ -1,6 +1,7 @@
 import { CollectionConfig } from 'payload/types';
 import { isAdminOrSelf } from '../access/isAdminOrSelf';
 import { isAdmin } from '../access/isAdmin';
+import { assignUserId } from '../hooks/assignUserId';
 
 const Todos: CollectionConfig = {
   slug: 'todos',
@@ -22,6 +23,9 @@ const Todos: CollectionConfig = {
       type: 'relationship',
       relationTo: ['users'],
       hasMany: false,
+      hooks: {
+        beforeChange: [assignUserId],
+      },
     },
   ],
   access: {
